@@ -1,12 +1,12 @@
 module(..., package.seeall)
 
-local FileWriter = require("scripts.FileWriter")
-
 local mSceneGameLayer
 
 function init()
 	local eglView = CCEGLView:sharedOpenGLView()
-	eglView:setFrameSize( 640, 960 )
+	if CCApplication:sharedApplication():getTargetPlatform() == kTargetWindows then
+		eglView:setFrameSize( 640, 960 )
+	end
 	eglView:setDesignResolutionSize( 640, 960, kResolutionShowAll )
 
 	local sceneGame = CCScene:create()

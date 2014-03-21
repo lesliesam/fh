@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
-    CCFileUtils::sharedFileUtils()->addSearchPath("script");
+	CCFileUtils::sharedFileUtils()->addSearchPath("script");
 #endif
 
     std::string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("footballhero.lua");

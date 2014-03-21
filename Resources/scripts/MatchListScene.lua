@@ -57,4 +57,22 @@ function helperInitMatchInfo( content, matchIndex )
     team2:loadTexture( Constants.TEAM_IMAGE_PATH..TeamConfig.getLogo( MatchConfig.getTeam2( matchIndex ) ) )
     team1Name:setText( TeamConfig.getDisplayName( MatchConfig.getTeam1( matchIndex ) ) )
     team2Name:setText( TeamConfig.getDisplayName( MatchConfig.getTeam2( matchIndex ) ) )
+
+    local previousPrediction = Logic:getPrediction( matchIndex )
+    if previousPrediction == nil then
+        content:getChildByName("bet"):setVisible( false )
+    else
+        content:getChildByName("VS"):setVisible( false )
+        local betString = ""
+        if previousPrediction == 1 then
+            betString = "You bet "..TeamConfig.getDisplayName( MatchConfig.getTeam1( matchIndex ) ).." to win! "
+        elseif previousPrediction == 2 then
+            betString = "You bet "..TeamConfig.getDisplayName( MatchConfig.getTeam2( matchIndex ) ).." to win! "
+        else
+            betString = "You bet draw."
+        end
+
+        local betLabel = tolua.cast( content:getChildByName("bet"), "Label" )
+        betLabel:setText( betString )
+    end
 end

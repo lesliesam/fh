@@ -60,8 +60,8 @@ function Logic:consumePoint( v )
 	end
 end
 
-function Logic:getPredictionList()
-	return self.mPredictionList
+function Logic:getPrediction( predictionIndex )
+	return self.mPredictionList[""..predictionIndex]
 end
 
 function Logic:addPrediction( predictionIndex, prediciton )

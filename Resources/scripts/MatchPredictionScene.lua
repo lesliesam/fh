@@ -31,18 +31,21 @@ end
 function team1WinEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
         Logic:addPrediction( mMatchIndex, Constants.TEAM1_WIN )
+        MatchListScene.loadFrame()
     end
 end
 
 function team2WinEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
         Logic:addPrediction( mMatchIndex, Constants.TEAM2_WIN )
+        MatchListScene.loadFrame()
     end
 end
 
 function drawEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
        Logic:addPrediction( mMatchIndex, Constants.DRAW )
+       MatchListScene.loadFrame()
     end
 end
 
