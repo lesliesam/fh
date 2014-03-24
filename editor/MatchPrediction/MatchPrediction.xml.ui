@@ -9,12 +9,13 @@
   <JsonFolder>Z:\下载\cocos2d-x-2.2.2\projects\FootballHero\editor\MatchPrediction\Json</JsonFolder>
   <JsonList>
     <string>MatchPrediction.json</string>
+    <string>ScorePrediction.json</string>
   </JsonList>
   <imageFileList>
     <string>MatchPrediction0.plist</string>
   </imageFileList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>MatchPrediction.json</CurrentUIJson>
+  <CurrentUIJson>ScorePrediction.json</CurrentUIJson>
   <CanvasSize>
     <Width>640</Width>
     <Height>960</Height>

@@ -5,6 +5,7 @@ local SceneManager = require("scripts.SceneManager")
 local TeamConfig = require("scripts.config.Team")
 local MatchConfig = require("scripts.config.Match")
 local MatchListScene = require("scripts.MatchListScene")
+local ScorePrediction = require("scripts.ScorePrediction")
 local Logic = require("scripts.Logic").getInstance()
 
 local mMatchIndex = 0
@@ -30,28 +31,35 @@ end
 
 function team1WinEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
-        Logic:addPrediction( mMatchIndex, Constants.TEAM1_WIN )
-        MatchListScene.loadFrame()
+        makePrediction( Constants.TEAM1_WIN )
     end
 end
 
 function team2WinEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
-        Logic:addPrediction( mMatchIndex, Constants.TEAM2_WIN )
-        MatchListScene.loadFrame()
+        makePrediction( Constants.TEAM2_WIN )
     end
 end
 
 function drawEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
-       Logic:addPrediction( mMatchIndex, Constants.DRAW )
-       MatchListScene.loadFrame()
+       makePrediction( Constants.DRAW )
     end
 end
 
 function backEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
         MatchListScene.loadFrame()
+    end
+end
+
+function makePrediction( prediction )
+    Logic:addPrediction( mMatchIndex, prediction )
+    local scorePredictionList = MatchConfig.getPredictionList( mMatchIndex )
+    if table.getn( scorePredictionList ) == 0 then
+        MatchListScene.loadFrame()
+    else
+        ScorePrediction.loadFrame()
     end
 end
 

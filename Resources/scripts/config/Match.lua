@@ -4,10 +4,21 @@ local JsonConfigReader = require("scripts.config.JsonConfigReader")
 
 
 local FILE_NAME = "config/matchs.json"
+local PREDICTION_FILE_NAME = "config/matchPredictions.json"
 local mConfig = {}
 local mConfigNum = 0
 
-mConfig, mConfigNum = JsonConfigReader.read( FILE_NAME, "id" )
+function init()
+	mConfig, mConfigNum = JsonConfigReader.read( FILE_NAME, "id" )
+	local predictionConfig, predictionConfigNum = JsonConfigReader.read( PREDICTION_FILE_NAME, "id" )
+
+	for i = 1, predictionConfigNum do
+		assert( predictionConfig[i] ~= nil, PREDICTION_FILE_NAME.." dosen't has "..i )
+		local pConfig = predictionConfig[i]
+		local matchID = pConfig["matchID"]
+		table.insert( getPredictionList( matchID ), pConfig )
+	end
+end
 
 function getConfig( id )
 	assert( mConfig[id] ~= nil, FILE_NAME.." dosen't has "..id )
@@ -47,3 +58,19 @@ function getDrawOdds( id )
 	local config = getConfig( id )
 	return config["drawOdds"]
 end
+
+--[[ Prediction structure:
+ id	matchID	predictionType	value1	value2	value3
+ Code to go through the predictionList
+ for i = 1, table.getn( match.getPredictionList( id ) ) do
+ end
+--]]
+function getPredictionList( id )
+	local config = getConfig( id )
+	if config["predictionList"] == nil then
+		config["predictionList"] = {}
+	end
+	return config["predictionList"]
+end
+
+init()

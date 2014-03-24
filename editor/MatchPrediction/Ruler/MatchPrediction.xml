@@ -4,4 +4,8 @@
     <Project>MatchPrediction</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>ScorePrediction</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

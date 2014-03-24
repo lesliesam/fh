@@ -8,6 +8,7 @@ function read( fileName, primaryKey )
 
 	local fileName = CCFileUtils:sharedFileUtils():fullPathForFilename( fileName )
 	local text = CCFileUtils:sharedFileUtils():getFileData( fileName, "r", 0 )
+	--print( text )
 	local jsonObject = Json.decode( text )
 	for i,v in pairs(jsonObject) do
 	    local id = v[primaryKey]
