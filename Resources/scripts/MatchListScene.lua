@@ -5,6 +5,7 @@ local SceneManager = require("scripts.SceneManager")
 local TeamConfig = require("scripts.config.Team")
 local MatchConfig = require("scripts.config.Match")
 local MatchPredictionScene = require("scripts.MatchPredictionScene")
+local Navigator = require("scripts.Navigator")
 local Logic = require("scripts.Logic").getInstance()
 
 
@@ -12,8 +13,9 @@ local mMatchNum = MatchConfig.getConfigNum()
 
 function loadFrame()
 	local widget = GUIReader:shareReader():widgetFromJsonFile("scenes/MatchList/MatchListScene.json")
-    SceneManager.clearNAddWidget(widget)
+    SceneManager.clearNAddWidget( widget )
 
+    Navigator.loadFrame()
 
     local contentContainer = tolua.cast( widget:getChildByName("ScrollView"), "ScrollView" )
     local layoutParameter = LinearLayoutParameter:create()
