@@ -19,9 +19,9 @@ function loadFrame()
     mWidget = widget
 
     local yesBt = widget:getChildByName("yes")
-    yesBt:addTouchEventListener( backEventHandler )
+    yesBt:addTouchEventListener( yesEventHandler )
     local noBt = widget:getChildByName("no")
-    noBt:addTouchEventListener( backEventHandler )
+    noBt:addTouchEventListener( noEventHandler )
 
     helperInitMatchInfo( widget, mMatchIndex )
     initPredictionQuest()
@@ -50,8 +50,19 @@ function initPredictionQuest()
  	end
 end
 
-function backEventHandler( sender, eventType )
+function yesEventHandler( sender, eventType )
     if eventType == TOUCH_EVENT_ENDED then
+    	Logic:addScorePrediction( mMatchIndex, mCurrentPredictionQuest, Constants.YES )
+
+        mCurrentPredictionQuest = mCurrentPredictionQuest + 1
+        initPredictionQuest()
+    end
+end
+
+function noEventHandler( sender, eventType )
+    if eventType == TOUCH_EVENT_ENDED then
+    	Logic:addScorePrediction( mMatchIndex, mCurrentPredictionQuest, Constants.NO )
+
         mCurrentPredictionQuest = mCurrentPredictionQuest + 1
         initPredictionQuest()
     end

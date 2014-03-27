@@ -26,8 +26,8 @@ local function main()
     local sceneManager = require("scripts.SceneManager")
     sceneManager.init()
 
-    local loginNRegScene = require("scripts.LoginNRegScene")
-    loginNRegScene.loadFrame()
+    local matchListScene = require("scripts.MatchListScene")
+    matchListScene.loadFrame()
 end
 
 

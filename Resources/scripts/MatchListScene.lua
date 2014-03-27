@@ -11,7 +11,7 @@ local Logic = require("scripts.Logic").getInstance()
 local mMatchNum = MatchConfig.getConfigNum()
 
 function loadFrame()
-	local widget = GUIReader:shareReader():widgetFromJsonFile("scenes/MatchList/MatchListScene.ExportJson")
+	local widget = GUIReader:shareReader():widgetFromJsonFile("scenes/MatchList/MatchListScene.json")
     SceneManager.clearNAddWidget(widget)
 
 
@@ -57,22 +57,16 @@ function helperInitMatchInfo( content, matchIndex )
     team2:loadTexture( Constants.TEAM_IMAGE_PATH..TeamConfig.getLogo( MatchConfig.getTeam2( matchIndex ) ) )
     team1Name:setText( TeamConfig.getDisplayName( MatchConfig.getTeam1( matchIndex ) ) )
     team2Name:setText( TeamConfig.getDisplayName( MatchConfig.getTeam2( matchIndex ) ) )
+    team1Name:setFontName("fonts/Newgtbxc.ttf")
+    team2Name:setFontName("fonts/Newgtbxc.ttf")
 
     local previousPrediction = Logic:getPrediction( matchIndex )
+    local vsBt = tolua.cast( content:getChildByName("VS"), "Button" )
     if previousPrediction == nil then
-        content:getChildByName("bet"):setVisible( false )
+        vsBt:setBright( true )
+        vsBt:setTouchEnabled( true )
     else
-        content:getChildByName("VS"):setVisible( false )
-        local betString = ""
-        if previousPrediction == 1 then
-            betString = "You bet "..TeamConfig.getDisplayName( MatchConfig.getTeam1( matchIndex ) ).." to win! "
-        elseif previousPrediction == 2 then
-            betString = "You bet "..TeamConfig.getDisplayName( MatchConfig.getTeam2( matchIndex ) ).." to win! "
-        else
-            betString = "You bet draw."
-        end
-
-        local betLabel = tolua.cast( content:getChildByName("bet"), "Label" )
-        betLabel:setText( betString )
+        vsBt:setBright( false )
+        vsBt:setTouchEnabled( false )
     end
 end

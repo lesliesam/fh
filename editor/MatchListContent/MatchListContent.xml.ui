@@ -14,7 +14,7 @@
     <string>MatchListContent0.plist</string>
   </imageFileList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>MatchListContent.json</CurrentUIJson>
+  <CurrentUIJson />
   <CanvasSize>
     <Width>640</Width>
     <Height>200</Height>

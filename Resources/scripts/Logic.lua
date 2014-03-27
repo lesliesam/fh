@@ -1,8 +1,11 @@
 module(..., package.seeall)
 
-local FileWriter = require("scripts.FileWriter")
+local FileUtils = require("scripts.FileUtils")
 
 -- Singleton of logic
+local MATCH_PREDICTION = "matchPrediction"
+local SCORE_PREDICTION = "scorePrediction"
+local SUB_PREDICTION = "sub"
 local instance
 
 function getInstance()
@@ -61,12 +64,33 @@ function Logic:consumePoint( v )
 end
 
 function Logic:getPrediction( predictionIndex )
-	return self.mPredictionList[""..predictionIndex]
+	return self.mPredictionList[MATCH_PREDICTION..predictionIndex]
 end
 
 function Logic:addPrediction( predictionIndex, prediciton )
 	print("Index "..predictionIndex.." value "..prediciton)
-	self.mPredictionList[""..predictionIndex] = prediciton		-- use tonumber("3")
+	self.mPredictionList[MATCH_PREDICTION..predictionIndex] = prediciton		-- use tonumber("3")
 
-	FileWriter.writeTableToFile( "prediction.json", self.mPredictionList )
+	self:writeToFile()
+end
+
+function Logic:getScorePrediction( predictionIndex )
+	return self.mPredictionList[SCORE_PREDICTION..predictionIndex]
+end
+
+function Logic:addScorePrediction( predictionIndex, scorePredictionIndex, prediction )
+	if self.mPredictionList[SCORE_PREDICTION..predictionIndex] == nil then
+		self.mPredictionList[SCORE_PREDICTION..predictionIndex] = {}
+	end
+	self.mPredictionList[SCORE_PREDICTION..predictionIndex][SUB_PREDICTION..scorePredictionIndex] = prediction
+
+	self:writeToFile()
+end
+
+function Logic:writeToFile()
+	FileUtils.writeTableToFile( "prediction.json", self.mPredictionList )
+end
+
+function Logic:readFromFile()
+	self.mPredictionList = FileUtils.readTableFromFile( "prediction.json" )
 end
